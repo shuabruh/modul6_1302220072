@@ -1,4 +1,6 @@
-﻿internal class Program
+﻿using System.Diagnostics;
+
+internal class Program
 {
     private static void Main(string[] args)
     {
@@ -13,10 +15,12 @@
         SayaTubeVideo vid8 = new SayaTubeVideo("review film Cleopatra");
         SayaTubeVideo vid9 = new SayaTubeVideo("review film Sejarah");
         SayaTubeVideo vid10 = new SayaTubeVideo("review film Horror");
+        SayaTubeVideo vid11 = new SayaTubeVideo("                                                                                                                                                                                                                                              ");
+        
         user.AddVideo(vid1); user.AddVideo (vid2); user.AddVideo (vid3);
         user.AddVideo(vid4); user.AddVideo(vid5);user.AddVideo (vid6);
         user.AddVideo(vid7); user.AddVideo(vid8); user.AddVideo(vid9);
-        user.AddVideo(vid10);
+        user.AddVideo(vid10); user.AddVideo(vid11);
 
         user.PrintAllVideoPlaycount();
     }
@@ -30,6 +34,9 @@ public class SayaTubeUser
 
     public SayaTubeUser(string username)
     {
+        Debug.Assert(username != null);
+        Debug.Assert(username.Length <= 100);
+
         this.username = username;
 
         Random userId = new Random();
@@ -74,7 +81,11 @@ public class SayaTubeVideo
 
     public SayaTubeVideo(string title)
     {
+        Debug.Assert(title != null);
+        Debug.Assert(title.Length <= 200);
+
         this.title = title;
+
         playCount = 0;
         Random id_rand = new Random();
         id = id_rand.Next(10000, 100000);
@@ -82,6 +93,9 @@ public class SayaTubeVideo
 
     public void IncreasePlayCount(int increment)
     {
+        Debug.Assert(increment < 25000000);
+        Debug.Assert(playCount > 0);
+
         playCount += increment;
     }
 
